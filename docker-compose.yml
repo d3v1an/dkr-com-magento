@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - ./mysql_data:/var/lib/mysql
+     restart: always
+     env_file: 
+      - env
+    #  environment:
+    #    MYSQL_ROOT_PASSWORD: root
+    #    MYSQL_DATABASE: magento_urb_prj_00
+    #    MYSQL_USER: Ur8magento00
+    #    MYSQL_PASSWORD: AxuTh95K
+
+   magento:
+     depends_on:
+       - db
+     image: d3catalyst/dkr-magento2:latest
+    #  volumes: 
+    #     - ./magento_web:/var/www/html
+     ports:
+       - "9090:80"
+     restart: always
+     env_file: 
+      - env
+    #  environment:
+    #    MAGENTO_DB_HOST: db:3306
+    #    MAGENTO_DB_USER: Ur8magento00
+    #    MAGENTO_DB_PASSWORD: AxuTh95K
+    #    MAGENTO_DB_NAME: magento_urb_prj_00
+
+volumes:
+   db_data: {}
+   magento_data: {}
